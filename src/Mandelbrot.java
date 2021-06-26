@@ -5,8 +5,8 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public class Mandelbrot {
-    public Mandelbrot(float hue_color){
-        int width = 1024, height = 600, max = 1000;
+    public Mandelbrot(float hue_color, int a, int b){
+        int width = a, height = b, max = 1000;
         BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
         int black = 0;
         int[] colors = new int[max];
