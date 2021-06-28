@@ -1,9 +1,11 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 public class Generator extends JFrame {
     public String[] kolor_lista = {"Czerwony", "Niebieski", "Zielony", "Fioletowy"};
+    public String sciezka;
     public float kolor = 0;
     public int mandelbrot_width = 1280;
     public int mandelbrot_height = 720;
@@ -71,13 +73,28 @@ public class Generator extends JFrame {
                 try{
                     mandelbrot_width = Integer.parseInt(szerokosc.getText());
                     mandelbrot_height = Integer.parseInt(wysokosc.getText());
-                    new Mandelbrot(kolor,mandelbrot_width,mandelbrot_height);
+                    sciezka = "mandelbrot";
+                    new Mandelbrot(kolor,mandelbrot_width,mandelbrot_height,sciezka);
                     MandelbrotWindow pokaz = new MandelbrotWindow();
                     pokaz.okno_pokaz();
                 }
                 catch (NumberFormatException x){
                     JOptionPane.showMessageDialog(okno, "Wprowadzone dane muszą być liczbami całkowitymi!", "Błąd!",
                             JOptionPane.WARNING_MESSAGE);
+                }
+            }
+        });
+
+        zapisz.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser fileChooser = new JFileChooser();
+                fileChooser.setDialogTitle("Wybierz ścieżkę");
+                int userSelection = fileChooser.showSaveDialog(okno);
+                if (userSelection == JFileChooser.APPROVE_OPTION) {
+                    File fileToSave = fileChooser.getSelectedFile();
+                    sciezka = fileToSave.getAbsolutePath();
+                    new Mandelbrot(kolor,mandelbrot_width,mandelbrot_height,sciezka);
                 }
             }
         });

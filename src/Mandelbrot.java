@@ -5,7 +5,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public class Mandelbrot {
-    public Mandelbrot(float hue_color, int a, int b){
+    public Mandelbrot(float hue_color, int a, int b, String sciezka){
         int width = a, height = b, max = 1000;
         BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
         int black = 0;
@@ -32,7 +32,7 @@ public class Mandelbrot {
             }
         }
         try {
-            ImageIO.write(image, "png", new File("mandelbrot.png"));
+            ImageIO.write(image, "png", new File(sciezka+".png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
