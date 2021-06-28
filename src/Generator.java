@@ -78,8 +78,8 @@ public class Generator extends JFrame {
                     MandelbrotWindow pokaz = new MandelbrotWindow();
                     pokaz.okno_pokaz();
                 }
-                catch (NumberFormatException x){
-                    JOptionPane.showMessageDialog(okno, "Wprowadzone dane muszą być liczbami całkowitymi!", "Błąd!",
+                catch (IllegalArgumentException x){
+                    JOptionPane.showMessageDialog(okno, "Wprowadzone dane muszą być liczbami naturalnymi!", "Błąd!",
                             JOptionPane.WARNING_MESSAGE);
                 }
             }
@@ -93,8 +93,16 @@ public class Generator extends JFrame {
                 int userSelection = fileChooser.showSaveDialog(okno);
                 if (userSelection == JFileChooser.APPROVE_OPTION) {
                     File fileToSave = fileChooser.getSelectedFile();
-                    sciezka = fileToSave.getAbsolutePath();
-                    new Mandelbrot(kolor,mandelbrot_width,mandelbrot_height,sciezka);
+                    try{
+                        mandelbrot_width = Integer.parseInt(szerokosc.getText());
+                        mandelbrot_height = Integer.parseInt(wysokosc.getText());
+                        sciezka = fileToSave.getAbsolutePath();
+                        new Mandelbrot(kolor,mandelbrot_width,mandelbrot_height,sciezka);
+                    }
+                    catch (IllegalArgumentException x){
+                        JOptionPane.showMessageDialog(okno, "Wprowadzone dane muszą być liczbami naturalnymi!", "Błąd!",
+                                JOptionPane.WARNING_MESSAGE);
+                    }
                 }
             }
         });
